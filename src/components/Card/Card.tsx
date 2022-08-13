@@ -123,8 +123,15 @@ const TypeCCard = ({ item }: { item: AppointmentItemType }) => (
 );
 
 export const Card = ({ item }: { item: AppointmentItemType }) => {
-  if (item.type === SERVICE_TYPE.typeA) return <TypeACard item={item} />;
-  if (item.type === SERVICE_TYPE.typeB) return <TypeBCard item={item} />;
-  if (item.type === SERVICE_TYPE.typeC) return <TypeCCard item={item} />;
-  return null;
+  return (
+    <>
+      {item.type === SERVICE_TYPE.typeA ? (
+        <TypeACard item={item} />
+      ) : item.type === SERVICE_TYPE.typeB ? (
+        <TypeBCard item={item} />
+      ) : (
+        <TypeCCard item={item} />
+      )}
+    </>
+  );
 };
