@@ -26,6 +26,21 @@ export interface SignessType {
   id: string;
 }
 
+export interface ListProps {
+  items?: AppointmentItemType[];
+  title: string;
+}
+
+export interface FilterPanelProps {
+  periodOptions?: OptionsType<unknown>[];
+  patientsOptions?: OptionsType<unknown>[];
+  typesOptions?: OptionsType<unknown>[];
+  onSearchTextChange: (val: string) => void;
+  onPeriodChange: (val: string) => void;
+  onPatientsChange: (val: string) => void;
+  onTypeOfAppointmentChange: (val: string) => void;
+}
+
 export interface AppointmentItemType {
   id: string;
   description: string;

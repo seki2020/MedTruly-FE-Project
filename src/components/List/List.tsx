@@ -1,14 +1,8 @@
-import { AppointmentItemType } from "types";
+import { AppointmentItemType, ListProps } from "types";
 import { Card } from "components/Card/Card";
 import styles from "components/List/List.module.css";
 
-export const List = ({
-  items,
-  title = "Task",
-}: {
-  items?: AppointmentItemType[];
-  title: string;
-}) => {
+export const List: React.FC<ListProps> = ({ items, title = "Task" }) => {
   return (
     <div className={styles.panelContainer}>
       <h1 className={styles.title}>{title}</h1>

@@ -1,3 +1,4 @@
+import React from "react";
 import { AppointmentItemType, SERVICE_TYPE } from "types";
 import { Popover } from "antd";
 import styles from "components/Card/Card.module.css";
@@ -6,7 +7,7 @@ import { convertDateFormat, TYPEDISPLAYMAP } from "utils";
 
 const FAKE_USER_IMAGE_URL = "/logo192.png";
 
-const TypeACard = ({ item }: { item: AppointmentItemType }) => (
+const TypeACard: React.FC<{ item: AppointmentItemType }> = ({ item }) => (
   <Popover
     placement="bottomRight"
     content={<DetailPopover item={item}></DetailPopover>}
@@ -43,7 +44,7 @@ const TypeACard = ({ item }: { item: AppointmentItemType }) => (
   </Popover>
 );
 
-const TypeBCard = ({ item }: { item: AppointmentItemType }) => (
+const TypeBCard: React.FC<{ item: AppointmentItemType }> = ({ item }) => (
   <Popover
     placement="bottomRight"
     content={<DetailPopover item={item}></DetailPopover>}
@@ -65,7 +66,7 @@ const TypeBCard = ({ item }: { item: AppointmentItemType }) => (
   </Popover>
 );
 
-const TypeCCard = ({ item }: { item: AppointmentItemType }) => (
+const TypeCCard: React.FC<{ item: AppointmentItemType }> = ({ item }) => (
   <Popover
     placement="bottomRight"
     content={<DetailPopover item={item}></DetailPopover>}

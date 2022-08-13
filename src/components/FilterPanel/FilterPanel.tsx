@@ -1,19 +1,15 @@
 import styles from "components/FilterPanel/FilterPanel.module.css";
 import { Select, Input } from "antd";
-import { SearchOutlined } from "@ant-design/icons";
+import {
+  SearchOutlined,
+  CalendarOutlined,
+  UsergroupAddOutlined,
+  TagOutlined,
+} from "@ant-design/icons";
 import { useState } from "react";
-import { OptionsType } from "types";
+import { FilterPanelProps } from "types";
 
-interface FilterPanelProps {
-  periodOptions?: OptionsType<unknown>[];
-  patientsOptions?: OptionsType<unknown>[];
-  typesOptions?: OptionsType<unknown>[];
-  onSearchTextChange: (val: string) => void;
-  onPeriodChange: (val: string) => void;
-  onPatientsChange: (val: string) => void;
-  onTypeOfAppointmentChange: (val: string) => void;
-}
-export const FilterPanel = ({
+export const FilterPanel: React.FC<FilterPanelProps> = ({
   periodOptions,
   patientsOptions,
   typesOptions,
@@ -21,7 +17,7 @@ export const FilterPanel = ({
   onPeriodChange,
   onPatientsChange,
   onTypeOfAppointmentChange,
-}: FilterPanelProps) => {
+}) => {
   const [keyword, setKeyword] = useState<string>();
 
   return (
@@ -39,27 +35,45 @@ export const FilterPanel = ({
       </div>
       <div className={styles.row}>
         <div>PERIOD</div>
-        <Select
-          options={periodOptions}
-          onChange={onPeriodChange}
-          defaultValue={"ALL"}
-        ></Select>
+        <div className={styles.iconSelect}>
+          <div className={styles.iconStyle}>
+            <CalendarOutlined />
+          </div>
+          <Select
+            options={periodOptions}
+            onChange={onPeriodChange}
+            defaultValue={"ALL"}
+            style={{ width: "100%" }}
+          ></Select>
+        </div>
       </div>
       <div className={styles.row}>
         <div>PATIENTS</div>
-        <Select
-          options={patientsOptions}
-          onChange={onPatientsChange}
-          defaultValue={"ALL"}
-        ></Select>
+        <div className={styles.iconSelect}>
+          <div className={styles.iconStyle}>
+            <UsergroupAddOutlined />
+          </div>
+          <Select
+            options={patientsOptions}
+            onChange={onPatientsChange}
+            defaultValue={"ALL"}
+            style={{ width: "100%" }}
+          ></Select>
+        </div>
       </div>
       <div className={styles.row}>
         <div>TYPE OF APPOINTMENT</div>
-        <Select
-          options={typesOptions}
-          onChange={onTypeOfAppointmentChange}
-          defaultValue={"ALL"}
-        ></Select>
+        <div className={styles.iconSelect}>
+          <div className={styles.iconStyle}>
+            <TagOutlined />
+          </div>
+          <Select
+            options={typesOptions}
+            onChange={onTypeOfAppointmentChange}
+            defaultValue={"ALL"}
+            style={{ width: "100%" }}
+          ></Select>
+        </div>
       </div>
     </div>
   );

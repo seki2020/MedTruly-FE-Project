@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { List, FilterPanel } from "components";
 import styles from "App.module.css";
 import dummyData from "mock/appointments.json";
@@ -19,10 +19,10 @@ function App() {
   const [period, setPeriod] = useState<string>();
   const [patients, setPatients] = useState<string>();
   const [type, setType] = useState<string>();
-  const [periodOptions, setPeriodOptions] = useState<OptionsType<unknown>[]>();
+  const [periodOptions, setPeriodOptions] = useState<OptionsType<string>[]>();
   const [patientsOptions, setPatientsOptions] =
-    useState<OptionsType<unknown>[]>();
-  const [typesOptions, setTypesOptions] = useState<OptionsType<unknown>[]>();
+    useState<OptionsType<string>[]>();
+  const [typesOptions, setTypesOptions] = useState<OptionsType<string>[]>();
 
   const initiatePeriods = (jsonDate: AppointmentItemType[]) => {
     const monthOptions = jsonDate
@@ -102,72 +102,64 @@ function App() {
     initiatePatients(rawList);
   }, []);
 
-  const filterData = (json: { data: { allNotes: { edges: {} } } }) => {
-    let rawList = json.data.allNotes.edges as AppointmentItemType[];
+  const filterData = useCallback(
+    (json: { data: { allNotes: { edges: {} } } }) => {
+      let rawList = json.data.allNotes.edges as AppointmentItemType[];
 
-    // search
-    if (keywords) {
-      rawList = rawList.filter((row) => {
-        return `${row.patient.account.firstName.toLowerCase()}${row.patient.account.lastName.toLowerCase()}`.includes(
-          keywords.toLowerCase()
-        );
-      });
-    }
+      // search
+      if (keywords) {
+        rawList = rawList.filter((row) => {
+          return `${row.patient.account.firstName.toLowerCase()}${row.patient.account.lastName.toLowerCase()}`.includes(
+            keywords.toLowerCase()
+          );
+        });
+      }
 
-    // period
-    if (period) {
-      rawList = rawList.filter((row) => {
-        return (
-          new Date(row.serviceStart).getTime() <= new Date(period).getTime() &&
-          new Date(row.serviceEnd).getTime() >= new Date(period).getTime()
-        );
-      });
-    }
+      // period
+      if (period) {
+        rawList = rawList.filter((row) => {
+          return (
+            new Date(row.serviceStart).getTime() <=
+              new Date(period).getTime() &&
+            new Date(row.serviceEnd).getTime() >= new Date(period).getTime()
+          );
+        });
+      }
 
-    // patients
-    if (patients) {
-      rawList = rawList.filter((row) => {
-        return row.patient.account.id === patients;
-      });
-    }
+      // patients
+      if (patients) {
+        rawList = rawList.filter((row) => {
+          return row.patient.account.id === patients;
+        });
+      }
 
-    // type
-    if (type) {
-      rawList = rawList.filter((row) => {
-        return row.type === type;
-      });
-    }
+      // type
+      if (type) {
+        rawList = rawList.filter((row) => {
+          return row.type === type;
+        });
+      }
 
-    const task = rawList.filter(
-      (item: AppointmentItemType) => item.status === APPOINTMENT_TYPE.PENDING
-    );
-    const review = rawList.filter(
-      (item: AppointmentItemType) =>
-        item.status === APPOINTMENT_TYPE.NEED_REVIEW
-    );
-    const done = rawList.filter(
-      (item: AppointmentItemType) => item.status === APPOINTMENT_TYPE.COMPLETED
-    );
+      const task = rawList.filter(
+        (item: AppointmentItemType) => item.status === APPOINTMENT_TYPE.PENDING
+      );
+      const review = rawList.filter(
+        (item: AppointmentItemType) =>
+          item.status === APPOINTMENT_TYPE.NEED_REVIEW
+      );
+      const done = rawList.filter(
+        (item: AppointmentItemType) =>
+          item.status === APPOINTMENT_TYPE.COMPLETED
+      );
 
-    setData({ task, review, done });
-  };
+      setData({ task, review, done });
+    },
+    [keywords, period, patients, type]
+  );
 
   useEffect(() => {
     filterData(dummyData);
-  }, [keywords, period, patients, type]);
-
-  const handleSearchTextChange = (val: string) => {
-    setKeywords(val);
-  };
-  const hanlePeriodChange = (val: string) => {
-    setPeriod(val);
-  };
-  const handlePatientsChange = (val: string) => {
-    setPatients(val);
-  };
-  const handleTypeOfAppointmentChange = (val: string) => {
-    setType(val);
-  };
+  }, [keywords, period, patients, type, filterData]);
 
   return (
     <div className={styles.app}>
@@ -176,10 +168,10 @@ function App() {
           typesOptions={typesOptions}
           patientsOptions={patientsOptions}
           periodOptions={periodOptions}
-          onSearchTextChange={handleSearchTextChange}
-          onPeriodChange={hanlePeriodChange}
-          onPatientsChange={handlePatientsChange}
-          onTypeOfAppointmentChange={handleTypeOfAppointmentChange}
+          onSearchTextChange={setKeywords}
+          onPeriodChange={setPeriod}
+          onPatientsChange={setPatients}
+          onTypeOfAppointmentChange={setType}
         ></FilterPanel>
       </div>
       <div className={styles.right}>
