@@ -42,3 +42,8 @@ export interface RawDataType {
   review: AppointmentItemType[];
   done: AppointmentItemType[];
 }
+
+export interface OptionsType<T> {
+  label: string;
+  value: T;
+}

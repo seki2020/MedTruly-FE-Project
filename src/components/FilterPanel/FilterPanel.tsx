@@ -1,10 +1,13 @@
 import styles from "components/FilterPanel/FilterPanel.module.css";
-import { DatePicker, Select, Input, Dropdown } from "antd";
+import { Select, Input } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import { useState } from "react";
+import { OptionsType } from "types";
 
 interface FilterPanelProps {
-  periodOptions: any;
+  periodOptions?: OptionsType<unknown>[];
+  patientsOptions?: OptionsType<unknown>[];
+  typesOptions?: OptionsType<unknown>[];
   onSearchTextChange: (val: string) => void;
   onPeriodChange: (val: string) => void;
   onPatientsChange: (val: string) => void;
@@ -12,6 +15,8 @@ interface FilterPanelProps {
 }
 export const FilterPanel = ({
   periodOptions,
+  patientsOptions,
+  typesOptions,
   onSearchTextChange,
   onPeriodChange,
   onPatientsChange,
@@ -38,6 +43,14 @@ export const FilterPanel = ({
       </div>
       <div className={styles.row}>
         <div>PATIENTS</div>
+        <Select options={patientsOptions} onChange={onPatientsChange}></Select>
+      </div>
+      <div className={styles.row}>
+        <div>TYPE OF APPOINTMENT</div>
+        <Select
+          options={typesOptions}
+          onChange={onTypeOfAppointmentChange}
+        ></Select>
       </div>
     </div>
   );

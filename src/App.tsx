@@ -2,7 +2,12 @@ import React, { useEffect, useState } from "react";
 import { List, FilterPanel } from "components";
 import styles from "App.module.css";
 import dummyData from "mock/appointments.json";
-import { AppointmentItemType, APPOINTMENT_TYPE, RawDataType } from "types";
+import {
+  AppointmentItemType,
+  APPOINTMENT_TYPE,
+  RawDataType,
+  OptionsType,
+} from "types";
 import _ from "lodash";
 import "antd/dist/antd.css";
 
@@ -18,26 +23,13 @@ function App() {
   const [period, setPeriod] = useState<string>();
   const [patients, setPatients] = useState();
   const [type, setType] = useState();
-  const [periodOptions, setPeriodOptions] = useState([
-    {
-      label: "test",
-      value: "test",
-    },
-    {
-      label: "test2",
-      value: "test2",
-    },
-    {
-      label: "test3",
-      value: "test3",
-    },
-  ]);
+  const [periodOptions, setPeriodOptions] = useState<OptionsType<unknown>[]>();
+  const [patientsOptions, setPatientsOptions] =
+    useState<OptionsType<unknown>[]>();
+  const [typesOptions, setTypesOptions] = useState<OptionsType<unknown>[]>();
 
-  useEffect(() => {
-    // period options initiate
-    const rawList = dummyData.data.allNotes.edges as AppointmentItemType[];
-
-    const monthOptions = rawList
+  const initiatePeriods = (jsonDate: AppointmentItemType[]) => {
+    const monthOptions = jsonDate
       .map((row) => {
         const monthDiffCount = diffMonths(
           new Date(row.serviceStart),
@@ -66,6 +58,25 @@ function App() {
         };
       })
     );
+  };
+
+  const initiateTags = (jsonData: AppointmentItemType[]) => {
+    const filteredTypes = _(jsonData)
+      .map((item) => item.type)
+      .uniq()
+      .sort()
+      .value();
+
+    setTypesOptions(
+      filteredTypes.map((type) => ({ label: type, value: type }))
+    );
+  };
+
+  useEffect(() => {
+    // period options initiate
+    const rawList = dummyData.data.allNotes.edges as AppointmentItemType[];
+    initiatePeriods(rawList);
+    initiateTags(rawList);
   }, []);
 
   const filterData = (json: any) => {
@@ -87,6 +98,12 @@ function App() {
           new Date(row.serviceStart).getTime() <= new Date(period).getTime() &&
           new Date(row.serviceEnd).getTime() >= new Date(period).getTime()
         );
+      });
+    }
+
+    if (type) {
+      rawList = rawList.filter((row) => {
+        return row.type === type;
       });
     }
 
@@ -125,6 +142,8 @@ function App() {
     <div className={styles.app}>
       <div className={styles.left}>
         <FilterPanel
+          typesOptions={typesOptions}
+          patientsOptions={patientsOptions}
           periodOptions={periodOptions}
           onSearchTextChange={handleSearchTextChange}
           onPeriodChange={hanlePeriodChange}
