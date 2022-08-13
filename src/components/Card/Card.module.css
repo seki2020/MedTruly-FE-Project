@@ -1,0 +1,8 @@
+.root {
+  border-bottom: 1px solid gray;
+  background-color: #fff;
+  padding: 20px;
+}
+.root:last-of-type {
+  border-color: "transparent";
+}
