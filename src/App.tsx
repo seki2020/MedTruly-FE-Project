@@ -72,11 +72,30 @@ function App() {
     );
   };
 
+  const initiatePatients = (jsonData: AppointmentItemType[]) => {
+    const filteredPatientAccount = _(jsonData)
+      .map((item) => JSON.stringify(item.patient.account))
+      .uniq()
+      .sort()
+      .value();
+
+    setPatientsOptions(
+      filteredPatientAccount.map((patient) => {
+        const item = JSON.parse(patient);
+        return {
+          label: `${item.firstName} ${item.lastName}`,
+          value: item.id,
+        };
+      })
+    );
+  };
+
   useEffect(() => {
     // period options initiate
     const rawList = dummyData.data.allNotes.edges as AppointmentItemType[];
     initiatePeriods(rawList);
     initiateTags(rawList);
+    initiatePatients(rawList);
   }, []);
 
   const filterData = (json: any) => {
@@ -101,6 +120,14 @@ function App() {
       });
     }
 
+    // patients
+    if (patients) {
+      rawList = rawList.filter((row) => {
+        return row.patient.account.id === patients;
+      });
+    }
+
+    // type
     if (type) {
       rawList = rawList.filter((row) => {
         return row.type === type;
