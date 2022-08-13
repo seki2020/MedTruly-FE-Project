@@ -11,10 +11,10 @@ export const List = ({
 }) => {
   return (
     <div className={styles.panelContainer}>
-      <h1>{title}</h1>
+      <h1 className={styles.title}>{title}</h1>
       <div className={styles.itemContainer}>
         {items?.map((item: AppointmentItemType, index: number) => {
-          return <Card item={item}></Card>;
+          return <Card item={item} key={`list-${title}-${index}`}></Card>;
         })}
       </div>
     </div>

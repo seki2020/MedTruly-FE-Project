@@ -25,7 +25,7 @@ export const FilterPanel = ({
   const [keyword, setKeyword] = useState<string>();
 
   return (
-    <div>
+    <div className={styles.root}>
       <div className={styles.row}>
         <Input
           value={keyword}

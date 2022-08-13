@@ -1,8 +1,58 @@
 .root {
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid rgb(247, 246, 248);
   background-color: #fff;
-  padding: 20px;
+  padding: 30px;
+  position: relative;
+  cursor: pointer;
+}
+.root:hover {
+  background-color: rgb(224, 224, 224);
+}
+
+.title {
+  font-size: 20px;
+}
+.subTitle {
+  color: rgb(166, 166, 166);
+  text-transform: uppercase;
+  font-size: 12px;
 }
 .root:last-of-type {
   border-color: "transparent";
+}
+.type {
+  position: absolute;
+  right: 10px;
+  top: 35px;
+  background-color: rgb(50, 179, 94);
+  color: #fff;
+  padding-left: 20px;
+  padding-right: 60px;
+}
+.typea {
+  background-color: rgb(50, 179, 94);
+}
+.typeb {
+  background-color: rgb(58, 95, 229);
+}
+.typec {
+  background-color: rgb(254, 172, 86);
+}
+.typeCUsers {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.userIcon {
+  width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  margin-right: 10px;
+}
+.signedName {
+  font-weight: bold;
+}
+
+.serviceDate {
+  font-weight: bold;
 }
