@@ -17,3 +17,10 @@
 .itemContainer {
   overflow-y: auto;
 }
+
+@media only screen and (max-width: 375px) {
+  .panelContainer {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
