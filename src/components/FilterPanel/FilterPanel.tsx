@@ -39,17 +39,26 @@ export const FilterPanel = ({
       </div>
       <div className={styles.row}>
         <div>PERIOD</div>
-        <Select options={periodOptions} onChange={onPeriodChange}></Select>
+        <Select
+          options={periodOptions}
+          onChange={onPeriodChange}
+          defaultValue={"ALL"}
+        ></Select>
       </div>
       <div className={styles.row}>
         <div>PATIENTS</div>
-        <Select options={patientsOptions} onChange={onPatientsChange}></Select>
+        <Select
+          options={patientsOptions}
+          onChange={onPatientsChange}
+          defaultValue={"ALL"}
+        ></Select>
       </div>
       <div className={styles.row}>
         <div>TYPE OF APPOINTMENT</div>
         <Select
           options={typesOptions}
           onChange={onTypeOfAppointmentChange}
+          defaultValue={"ALL"}
         ></Select>
       </div>
     </div>

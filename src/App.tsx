@@ -7,6 +7,7 @@ import {
   APPOINTMENT_TYPE,
   RawDataType,
   OptionsType,
+  SERVICE_TYPE,
 } from "types";
 import _ from "lodash";
 import "antd/dist/antd.css";
@@ -45,14 +46,17 @@ function App() {
       .flat()
       .sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
 
-    setPeriodOptions(
-      _.uniq(monthOptions).map((period) => {
-        return {
-          label: period.slice(0, 7),
-          value: period,
-        };
-      })
-    );
+    const result = _.uniq(monthOptions).map((period) => {
+      return {
+        label: period.slice(0, 7),
+        value: period,
+      };
+    });
+
+    // add all options
+    result.unshift({ label: "ALL", value: "" });
+
+    setPeriodOptions(result);
   };
 
   const initiateTags = (jsonData: AppointmentItemType[]) => {
@@ -62,9 +66,11 @@ function App() {
       .sort()
       .value();
 
-    setTypesOptions(
-      filteredTypes.map((type) => ({ label: type, value: type }))
-    );
+    const result = filteredTypes.map((type) => ({ label: type, value: type }));
+
+    // add all options
+    result.unshift({ label: "ALL" as SERVICE_TYPE, value: "" as SERVICE_TYPE });
+    setTypesOptions(result);
   };
 
   const initiatePatients = (jsonData: AppointmentItemType[]) => {
@@ -74,15 +80,18 @@ function App() {
       .sort()
       .value();
 
-    setPatientsOptions(
-      filteredPatientAccount.map((patient) => {
-        const item = JSON.parse(patient);
-        return {
-          label: `${item.firstName} ${item.lastName}`,
-          value: item.id,
-        };
-      })
-    );
+    const result = filteredPatientAccount.map((patient) => {
+      const item = JSON.parse(patient);
+      return {
+        label: `${item.firstName} ${item.lastName}`,
+        value: item.id,
+      };
+    });
+
+    // add all options
+    result.unshift({ label: "ALL" as SERVICE_TYPE, value: "" as SERVICE_TYPE });
+
+    setPatientsOptions(result);
   };
 
   useEffect(() => {
