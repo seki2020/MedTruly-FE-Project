@@ -17,8 +17,8 @@ function App() {
   const [data, setData] = useState<RawDataType>();
   const [keywords, setKeywords] = useState<string>();
   const [period, setPeriod] = useState<string>();
-  const [patients, setPatients] = useState();
-  const [type, setType] = useState();
+  const [patients, setPatients] = useState<string>();
+  const [type, setType] = useState<string>();
   const [periodOptions, setPeriodOptions] = useState<OptionsType<unknown>[]>();
   const [patientsOptions, setPatientsOptions] =
     useState<OptionsType<unknown>[]>();
@@ -102,7 +102,7 @@ function App() {
     initiatePatients(rawList);
   }, []);
 
-  const filterData = (json: any) => {
+  const filterData = (json: { data: { allNotes: { edges: {} } } }) => {
     let rawList = json.data.allNotes.edges as AppointmentItemType[];
 
     // search
@@ -163,10 +163,10 @@ function App() {
     setPeriod(val);
   };
   const handlePatientsChange = (val: string) => {
-    setPatients(val as any);
+    setPatients(val);
   };
   const handleTypeOfAppointmentChange = (val: string) => {
-    setType(val as any);
+    setType(val);
   };
 
   return (

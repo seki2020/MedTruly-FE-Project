@@ -7,7 +7,10 @@ import { convertDateFormat, TYPEDISPLAYMAP } from "utils";
 const FAKE_USER_IMAGE_URL = "/logo192.png";
 
 const TypeACard = ({ item }: { item: AppointmentItemType }) => (
-  <Popover content={<DetailPopover item={item}></DetailPopover>}>
+  <Popover
+    placement="bottomRight"
+    content={<DetailPopover item={item}></DetailPopover>}
+  >
     <div className={styles.root}>
       <h3 className={styles.title}>
         {item.patient.account.firstName + " " + item.patient.account.lastName}
@@ -41,7 +44,10 @@ const TypeACard = ({ item }: { item: AppointmentItemType }) => (
 );
 
 const TypeBCard = ({ item }: { item: AppointmentItemType }) => (
-  <Popover content={<DetailPopover item={item}></DetailPopover>}>
+  <Popover
+    placement="bottomRight"
+    content={<DetailPopover item={item}></DetailPopover>}
+  >
     <div className={styles.root}>
       <h3 className={styles.title}>
         {item.patient.account.firstName + " " + item.patient.account.lastName}
@@ -60,7 +66,10 @@ const TypeBCard = ({ item }: { item: AppointmentItemType }) => (
 );
 
 const TypeCCard = ({ item }: { item: AppointmentItemType }) => (
-  <Popover content={<DetailPopover item={item}></DetailPopover>}>
+  <Popover
+    placement="bottomRight"
+    content={<DetailPopover item={item}></DetailPopover>}
+  >
     <div className={styles.root}>
       <h3 className={styles.title}>
         {item.patient.account.firstName + " " + item.patient.account.lastName}
