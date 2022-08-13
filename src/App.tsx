@@ -10,12 +10,7 @@ import {
 } from "types";
 import _ from "lodash";
 import "antd/dist/antd.css";
-
-function diffMonths(dt2: Date, dt1: Date) {
-  var diff = (dt2.getTime() - dt1.getTime()) / 1000;
-  diff /= 60 * 60 * 24 * 7 * 4;
-  return Math.abs(Math.round(diff));
-}
+import { diffMonths } from "utils";
 
 function App() {
   const [data, setData] = useState<RawDataType>();
