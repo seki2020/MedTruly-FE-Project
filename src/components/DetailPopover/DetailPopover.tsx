@@ -1,9 +1,8 @@
 import { convertDateFormat, TYPEDISPLAYMAP } from "utils";
-import { AppointmentItemType, SERVICE_TYPE } from "types";
+import { CardCommonProps, SERVICE_TYPE } from "types";
 import styles from "components/DetailPopover/DetailPopover.module.css";
-export const DetailPopover: React.FC<{ item: AppointmentItemType }> = ({
-  item,
-}) => {
+
+export const DetailPopover = ({ item }: CardCommonProps) => {
   return (
     <div className={styles.detailCompRoot}>
       <h1

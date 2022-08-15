@@ -9,7 +9,7 @@ import {
 import { useState } from "react";
 import { FilterPanelProps } from "types";
 
-export const FilterPanel: React.FC<FilterPanelProps> = ({
+export const FilterPanel = ({
   periodOptions,
   patientsOptions,
   typesOptions,
@@ -17,7 +17,7 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
   onPeriodChange,
   onPatientsChange,
   onTypeOfAppointmentChange,
-}) => {
+}: FilterPanelProps) => {
   const [keyword, setKeyword] = useState<string>();
 
   return (

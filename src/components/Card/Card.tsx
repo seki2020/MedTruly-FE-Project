@@ -1,13 +1,12 @@
-import React from "react";
-import { AppointmentItemType, SERVICE_TYPE } from "types";
+import { CardCommonProps, SERVICE_TYPE } from "types";
 import { Popover } from "antd";
 import styles from "components/Card/Card.module.css";
-import { DetailPopover } from "components/DetailPopover/DetailPopover";
+import { DetailPopover } from "components";
 import { convertDateFormat, TYPEDISPLAYMAP } from "utils";
 
 const FAKE_USER_IMAGE_URL = "/logo192.png";
 
-const TypeACard: React.FC<{ item: AppointmentItemType }> = ({ item }) => (
+const TypeACard = ({ item }: CardCommonProps) => (
   <Popover
     placement="bottomRight"
     content={<DetailPopover item={item}></DetailPopover>}
@@ -44,7 +43,7 @@ const TypeACard: React.FC<{ item: AppointmentItemType }> = ({ item }) => (
   </Popover>
 );
 
-const TypeBCard: React.FC<{ item: AppointmentItemType }> = ({ item }) => (
+const TypeBCard = ({ item }: CardCommonProps) => (
   <Popover
     placement="bottomRight"
     content={<DetailPopover item={item}></DetailPopover>}
@@ -66,7 +65,7 @@ const TypeBCard: React.FC<{ item: AppointmentItemType }> = ({ item }) => (
   </Popover>
 );
 
-const TypeCCard: React.FC<{ item: AppointmentItemType }> = ({ item }) => (
+const TypeCCard = ({ item }: CardCommonProps) => (
   <Popover
     placement="bottomRight"
     content={<DetailPopover item={item}></DetailPopover>}
@@ -126,7 +125,7 @@ const TypeCCard: React.FC<{ item: AppointmentItemType }> = ({ item }) => (
   </Popover>
 );
 
-export const Card: React.FC<{ item: AppointmentItemType }> = ({ item }) => {
+export const Card = ({ item }: CardCommonProps) => {
   return (
     <>
       {item.type === SERVICE_TYPE.typeA ? (

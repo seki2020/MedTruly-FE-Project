@@ -62,3 +62,7 @@ export interface OptionsType<T> {
   label: string;
   value: T;
 }
+
+export interface CardCommonProps {
+  item: AppointmentItemType;
+}
